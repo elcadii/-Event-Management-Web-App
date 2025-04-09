@@ -1,0 +1,59 @@
+*{
+    color:aliceblue;
+}
+
+body {font-family: Verdana, sans-serif; margin:0}
+:root {
+    --dark-color: #f3f3f3;
+    --parag-color: #666666;
+    --dark-red: rgb(211, 7, 51);
+    --border-color: #6666662a;
+    --name-item: #0066c0;
+  }
+
+
+   .contener{
+    margin-top: 10%;
+  } 
+.ticketmenu{
+    width: 100%;
+}
+
+
+.products{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.product{
+    position: relative;
+    padding: 10px;
+    border: 2px solid var(--dark-red);
+    border-radius: 10px;
+    width: 20%;
+    margin: 10px;
+    transition: 0.3s ease-in-out;
+}
+
+.contener .ticketmenu .products .product img{
+    width: 100%;
+    border-radius: 20px;
+    height: 36%;
+}
+
+
+.contener .ticketmenu .products .product .eventName {
+    background-color: var(--parag-color);
+    margin-top: -17px;
+    padding: 25px 10px 14px;
+    text-align: center;
+}
+
+    .contener .ticketmenu .products .product button{
+        width: 100%;
+        padding: 10px 20px;
+        background-color: var(--dark-red);
+        cursor: pointer;
+    }
