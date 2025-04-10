@@ -2,7 +2,21 @@
 include("connectdb.php");
 include("header.php");
 // include("header2.php");
+
+
+
+$fetchevent = "SELECT evente.*, Category.category_name 
+                FROM evente 
+                INNER JOIN Category ON evente.category_id = Category.category_id 
+                LIMIT 3";
+$eventes = $pdo->query($fetchevent)->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +25,7 @@ include("header.php");
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="../style/hero.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -55,6 +70,34 @@ include("header.php");
 
   <section id="events" class="tickets">
     <div class="best_event">
+
+      <?php
+      // fetch event in div 
+      foreach ($eventes as $event) {
+        echo '<div class="tiket">
+                    <img src="../' . $event['event_image'] . '" alt="' . $event['event_name'] . '">
+                    <p class="eventName">' . $event['event_name'] . '</p>
+                    <p class="category"><i class="fa-solid fa-layer-group" style="color:rgb(211, 7, 51);padding:10px;"></i>' . $event['category_name'] . '</p>
+                    <p class="eventDesc"> <i class="fa-brands fa-rocketchat" style="color:rgb(211, 7, 51);padding:10px;"></i>' . $event['event_description'] . '</p>
+                    <p class="eventdate"><i class="fa-regular fa-clock" style="color:  rgb(211, 7, 51); padding:10px;"></i>' . $event['start_date'] . '</p>
+                    <p class="tickettPrice"><i class="fa-solid fa-money-check-dollar" style="color:rgb(211, 7, 51);padding:10px;"></i> starting from' . $event['spicail_tarif'] . '</p>
+                    <a href="http://localhost/events/php/ticketcart.php"><button>see more</button></a>
+                    
+                    
+                </div>';
+      };
+      ?>
+      <!-- <div class="tiket">
+        <img src="../img/here we show.webp" alt="">
+        <p class="eventName">here we show</p>
+        <p class="category"><i class="fa-solid fa-layer-group" style="color:rgb(211, 7, 51);padding:10px;"></i> sinima</p>
+        <p class="eventDesc"> <i class="fa-brands fa-rocketchat" style="color:rgb(211, 7, 51);padding:10px;"></i>rhkref uhfkrjef kjhkjf hjkerhf</p>
+        <p class="eventdate"><i class="fa-regular fa-clock" style="color:  rgb(211, 7, 51); padding:10px;"></i>20_02_2025</p>
+        <p class="eventAdress"><i class="fa-solid fa-location-dot" style="color:rgb(211, 7, 51);padding:10px;"></i> casablanca</p>
+        <p class="tickettPrice"><i class="fa-solid fa-money-check-dollar" style="color:rgb(211, 7, 51);padding:10px;"></i> normal tarif 100 dh</p>
+        <p class="tickettPrice"><i class="fa-solid fa-money-check-dollar" style="color:rgb(211, 7, 51);padding:10px;"></i> spiceal tarif 50 dh</p>
+        <button>buy ticket</button>
+      </div>
       <div class="tiket">
         <img src="../img/here we show.webp" alt="">
         <p class="eventName">here we show</p>
@@ -66,17 +109,6 @@ include("header.php");
         <p class="tickettPrice"><i class="fa-solid fa-money-check-dollar" style="color:rgb(211, 7, 51);padding:10px;"></i> spiceal tarif 50 dh</p>
         <button>buy ticket</button>
       </div>
-      <div  class="tiket">
-        <img src="../img/here we show.webp" alt="">
-        <p class="eventName">here we show</p>
-        <p class="category"><i class="fa-solid fa-layer-group" style="color:rgb(211, 7, 51);padding:10px;"></i> sinima</p>
-        <p class="eventDesc"> <i class="fa-brands fa-rocketchat" style="color:rgb(211, 7, 51);padding:10px;"></i>rhkref uhfkrjef kjhkjf hjkerhf</p>
-        <p class="eventdate"><i class="fa-regular fa-clock" style="color:  rgb(211, 7, 51); padding:10px;"></i>20_02_2025</p>
-        <p class="eventAdress"><i class="fa-solid fa-location-dot" style="color:rgb(211, 7, 51);padding:10px;"></i> casablanca</p>
-        <p class="tickettPrice"><i class="fa-solid fa-money-check-dollar" style="color:rgb(211, 7, 51);padding:10px;"></i> normal tarif 100 dh</p>
-        <p class="tickettPrice"><i class="fa-solid fa-money-check-dollar" style="color:rgb(211, 7, 51);padding:10px;"></i> spiceal tarif 50 dh</p>
-        <button>buy ticket</button>
-      </div>
       <div class="tiket">
         <img src="../img/here we show.webp" alt="">
         <p class="eventName">here we show</p>
@@ -87,16 +119,16 @@ include("header.php");
         <p class="tickettPrice"><i class="fa-solid fa-money-check-dollar" style="color:rgb(211, 7, 51);padding:10px;"></i> normal tarif 100 dh</p>
         <p class="tickettPrice"><i class="fa-solid fa-money-check-dollar" style="color:rgb(211, 7, 51);padding:10px;"></i> spiceal tarif 50 dh</p>
         <button>buy ticket</button>
-      </div>
+      </div> -->
 
 
 
     </div>
     <div class="moreTecket">
-      <a href="http://localhost/events/php/ticket.php">view more ticket <i class="fa-solid fa-arrow-right" style="color: rgb(211, 7, 51);"></i></a>
+      <a href="http://localhost/events/php/ticket.php">view more events <i class="fa-solid fa-arrow-right" style="color: rgb(211, 7, 51);"></i></a>
     </div>
   </section>
-  <section id="contact" class="contact" >
+  <section id="contact" class="contact">
     <!-- From Uiverse  -->
     <form class="form">
 
@@ -137,6 +169,10 @@ include("header.php");
       <img src="../img/Feedback-pana.png" alt="">
     </div>
   </section>
+
+
+
+
 
 
 
