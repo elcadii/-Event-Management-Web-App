@@ -1,3 +1,47 @@
+<?php
+include("connectdb.php");
+
+    $PassError = "";
+    $emailError = "";
+
+if (isset($_POST['loginbtn'])){
+    $email = $_POST["loginemail"];
+    $password = $_POST['loginpassword'];
+    
+    $query  = "SELECT * FROM users WHERE email = :email";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    if($row){
+        if (password_verify($password, $row['password'])) {
+            // echo "you are log in";
+            //  echo "<pre>";
+            // print_r($adress) ;
+            // echo "</pre>";
+            $_SESSION['login'] = true;
+            $_SESSION['user_id'] = $row['user_id'];
+            // var_dump($_SESSION['address_id']);
+            // die();
+            header("location: http://localhost/events/php/hero.php");
+        }else{
+                $PassError =  "wrong password";
+                $_SESSION['login'] = false;
+        }
+    }else{
+        $emailError =  "email not found";
+        $_SESSION['login'] = false;
+    }
+}
+
+
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,24 +55,26 @@
 
 <body>
     <!-- From Uiverse.io by vinodjangid07 -->
-    <form action="" class="form_main">
+    <form action="" class="form_main" method="POST">
         <div class="container">
             <p class="heading">Login</p>
             <div class="inputContainer">
             <i class="fa-solid fa-envelope" style="color:rgb(194, 7, 7);"></i>
-                <input type="text" class="inputField" id="email" placeholder="email">
+                <input type="text" name="loginemail" class="inputField" id="email" placeholder="email">
             </div>
+            <span class="error"><?php echo $emailError; ?></span>
 
             <div class="inputContainer">
             <i class="fa-solid fa-lock" style="color:rgb(201, 5, 5);"></i>
-                <input type="password" class="inputField" id="password" placeholder="Password">
+                <input name ="loginpassword" type="password" class="inputField" id="password" placeholder="Password">
             </div>
+            <span class="error"><?php echo $PassError; ?></span>
 
 
-            <button id="button">Submit</button>
+            <button  type="submit" name="loginbtn" id="button">Submit</button>
             <div class="forgetPass">
                 <a class="forgotLink" href="#">Forgot your password?</a>
-                <a href="">sing up</a>
+                <a href="">creat account</a>
             </div>
 
         </div>

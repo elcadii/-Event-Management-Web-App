@@ -5,20 +5,7 @@ $fetchcaty = "SELECT DISTINCT category_name FROM category";
 $cat = $pdo->query($fetchcaty);
 
 
-if (isset($_GET["searchBtn"])) {
-    $search = $_GET["search"];
-    $searchQuery = "SELECT evente.* , Category.category_name 
-                                    FROM evente 
-                                    INNER JOIN Category ON evente.category_id = Category.category_id
-                                    WHERE event_name LIKE '%$search%'";
-                                    
-    $searchResult = $pdo->query($searchQuery)->fetchAll();
-    if (empty($searchResult)) {
-      echo "No results found!";
-    } else {
-        $eventes = $searchResult;
-    }
-  }
+
 ?>
 
 

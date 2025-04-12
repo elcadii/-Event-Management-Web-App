@@ -7,7 +7,7 @@ $pass = "";
 try {
     $pdo = new PDO($sdn, $user, $pass);
 
-    echo "Connected successfully"; 
+    // echo "Connected successfully"; 
 
 } catch (PDOException $e) {
   echo "Connection error: " . $e->getMessage();

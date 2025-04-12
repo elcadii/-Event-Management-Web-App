@@ -101,6 +101,7 @@
 }
 
 #button {
+  display: block;
   z-index: 2;
   position: relative;
   width: 92%;
@@ -133,5 +134,10 @@
 .forgetPass{
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+}
+
+.error{
+  color: #ff0000;
+  padding: 3px 50px;
 }
