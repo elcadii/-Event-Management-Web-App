@@ -16,7 +16,6 @@ document.querySelector(".pdfBTN").addEventListener("click", function () {
 
     let totalTickets = 0;
 
-    // Normal Tickets
     if (normalPriceNow > 0) {
         const normalCount = Math.round(normalPriceNow / unitNormal);
         totalTickets += normalCount;
@@ -26,19 +25,18 @@ document.querySelector(".pdfBTN").addEventListener("click", function () {
             const ticket = document.createElement("div");
             ticket.classList.add("ticket");
             ticket.innerHTML = `
-                <h2>🎫 Ticket</h2>
-                <p><strong> Event:</strong> ${event.name}</p>
-                <p><strong> Date:</strong> ${event.date}</p>
-                <p><strong> Location:</strong> ${event.location}</p>
-                <p><strong> Type:</strong> Normal</p>
-                <p><strong> Price:</strong> ${unitNormal.toFixed(2)} DH</p>
-                <p><strong> Code:</strong> <span>${code}</span></p>
+                <p><strong>Event:</strong> ${event.name}</p>
+                <p><strong>Date:</strong> ${event.date}</p>
+                <p><strong>Location:</strong> ${event.location}</p>
+                <p><strong>Type:</strong> Normal</p>
+                <p><strong>Price:</strong> ${unitNormal.toFixed(2)} DH</p>
+                <p><strong>Code:</strong> <span style="color: #d30733;">${code}</span></p>
             `;
             container.appendChild(ticket);
         }
     }
 
-    // Special Tickets
+    // 
     if (specialPriceNow > 0) {
         const specialCount = Math.round(specialPriceNow / unitSpecial);
         totalTickets += specialCount;
@@ -48,13 +46,12 @@ document.querySelector(".pdfBTN").addEventListener("click", function () {
             const ticket = document.createElement("div");
             ticket.classList.add("ticket");
             ticket.innerHTML = `
-                <h2>🎫 Ticket</h2>
-                <p><strong> Event:</strong> ${event.name}</p>
-                <p><strong> Date:</strong> ${event.date}</p>
-                <p><strong> Location:</strong> ${event.location}</p>
-                <p><strong> Type:</strong> Special</p>
-                <p><strong> Price:</strong> ${unitSpecial.toFixed(2)} DH</p>
-                <p><strong> Code:</strong> <span>${code}</span></p>
+                <p><strong>Event:</strong> ${event.name}</p>
+                <p><strong>Date:</strong> ${event.date}</p>
+                <p><strong>Location:</strong> ${event.location}</p>
+                <p><strong>Type:</strong> Special</p>
+                <p><strong>Price:</strong> ${unitSpecial.toFixed(2)} DH</p>
+                <p><strong>Code:</strong> <span style="color: #d30733;">${code}</span></p>
             `;
             container.appendChild(ticket);
         }
@@ -75,5 +72,7 @@ document.querySelector(".pdfBTN").addEventListener("click", function () {
         jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
     }).from(container).save().then(() => {
         container.style.display = "none";
+        generateInvoicePDF(normalPriceNow, specialPriceNow, unitNormal, unitSpecial, event);
     });
 });
+
