@@ -1,97 +1,132 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    color: #f3f3f3;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #f3f3f3;
 }
-body{
-    background-color: black;
+body {
+  background-color: black;
 }
 :root {
-    --dark-color: #f3f3f3;
-    --parag-color: #666666;
-    --dark-red: rgb(211, 7, 51);
-    --border-color: #6666662a;
-    --name-item: #0066c0;
-  }
-
-  .ticketCart .container{
-    margin-top: 8%;
-    display: flex;
-    justify-content: center;
+  --dark-color: #f3f3f3;
+  --parag-color: #666666;
+  --dark-red: rgb(211, 7, 51);
+  --border-color: #6666662a;
+  --name-item: #0066c0;
 }
 
-.ticketCart .container .imgdiv{
-    width: 40%;
-    height: 72vh;
+.ticketCart .container {
+  margin-top: 8%;
+  display: flex;
+  justify-content: center;
 }
 
-.ticketCart .container .imgdiv img{
-    width: 100%;
-    height: 95%;
+.ticketCart .container .imgdiv {
+  width: 40%;
+  height: 72vh;
 }
 
-.ticketCart .container .eventDesc{
-    width: 50%;
+.ticketCart .container .imgdiv img {
+  width: 100%;
+  height: 95%;
 }
 
-.ticketCart .container .eventDesc h2{
-    text-align: center;
-    color: var(--dark-red);
-    font-size: 2.5rem;
+.ticketCart .container .eventDesc {
+  width: 50%;
 }
 
-.ticketCart .container .eventDesc p{
-    margin-left: 10%;
-    font-size: 1.5rem;
-    padding: 5px;
+.ticketCart .container .eventDesc h2 {
+  text-align: center;
+  color: var(--dark-red);
+  font-size: 2.5rem;
 }
 
-.ticketCart .container .eventDesc .normalPrice , .ticketCart .container .eventDesc .spicealPrice {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 4% 0;
+.ticketCart .container .eventDesc p {
+  margin-left: 10%;
+  font-size: 1.5rem;
+  padding: 5px;
 }
 
-.ticketCart .container .eventDesc .normalPrice p i  , .ticketCart .container .eventDesc .spicealPrice p i{
-    margin-right: 15px;
+.ticketCart .container .eventDesc .normalPrice,
+.ticketCart .container .eventDesc .spicealPrice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4% 0;
 }
 
-.ticketCart .container .eventDesc .normalPrice .pricediv ,  .ticketCart .container .eventDesc .spicealPrice .pricediv {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        width: 35%;
+.ticketCart .container .eventDesc .normalPrice p i,
+.ticketCart .container .eventDesc .spicealPrice p i {
+  margin-right: 15px;
 }
 
-.ticketCart .container .eventDesc .normalPrice .pricediv i ,  .ticketCart .container .eventDesc .spicealPrice .pricediv i{
-    font-size: 2.6rem;
-    cursor: pointer;
+.ticketCart .container .eventDesc .normalPrice .pricediv,
+.ticketCart .container .eventDesc .spicealPrice .pricediv {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 35%;
 }
 
-.ticketCart .container .eventDesc .normalPrice .pricediv p ,  .ticketCart .container .eventDesc .spicealPrice .pricediv p{
-    font-size: 1.5rem;
+.ticketCart .container .eventDesc .normalPrice .pricediv i,
+.ticketCart .container .eventDesc .spicealPrice .pricediv i {
+  font-size: 2.6rem;
+  cursor: pointer;
 }
 
-.ticketCart .container .eventDesc .pdfBTN{
-    width: 80%;
-    background: brown;
-    padding: 10px 20px;
-    font-size: larger;
-    margin-left: 15%;
+.ticketCart .container .eventDesc .normalPrice .pricediv p,
+.ticketCart .container .eventDesc .spicealPrice .pricediv p {
+  font-size: 1.5rem;
+}
+
+.ticketCart .container .eventDesc .pdfBTN {
+  width: 80%;
+  background: brown;
+  padding: 10px 20px;
+  font-size: larger;
+  margin-left: 15%;
 }
 .pricediv {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .pricediv i {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .price {
-    font-size: 18px;
-    font-weight: bold;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.ticket {
+  border: 3px solid #d30733;
+  padding: 25px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  background: #fffcfd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.ticket h2 {
+  color: #d30733;
+  margin-bottom: 10px;
+}
+
+.ticket p {
+  margin: 5px 0;
+  color: black;
+}
+
+.ticket span {
+  color: #d30733;
+  font-weight: bold;
+}
+.ticket p strong{
+    color: black;
+    margin-right: 10px;
 }
