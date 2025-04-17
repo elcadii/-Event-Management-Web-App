@@ -19,10 +19,11 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
         $stmt = $pdo->prepare($fetchEventDetails);
         $stmt->execute(['event_id' => $event_id]);
         $eventDetails = $stmt->fetch(PDO::FETCH_ASSOC);
+        
     }
 
     // Handle ticket reservation when button is clicked
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ticketBtn'])) {
+    if (isset($_POST['ticketBtn'])) {
         // Get user session and input values
         $user_id = $_SESSION['user_id'];
         $normal_tarif_quantity = $_POST['normal_tarif_quantity'] ?? 0;
@@ -114,8 +115,7 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
 
                 <!-- Get Ticket Form -->
                 <form method="POST">
-
-                    <button class="pdfBTN" type="button">Get Ticket</button>
+                    <button  class="pdfBTN" name="ticketBtn" type="button">Get Ticket</button>
 
                 </form>
 

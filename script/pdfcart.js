@@ -1,4 +1,5 @@
 document.querySelector(".pdfBTN").addEventListener("click", function () {
+    // preventDefault();
     const normalPriceNow = parseFloat(document.getElementById("normalPrice").textContent.replace(' DH', ''));
     const specialPriceNow = parseFloat(document.getElementById("specialPrice").textContent.replace(' DH', ''));
 
@@ -74,5 +75,6 @@ document.querySelector(".pdfBTN").addEventListener("click", function () {
         container.style.display = "none";
         generateInvoicePDF(normalPriceNow, specialPriceNow, unitNormal, unitSpecial, event);
     });
+    
 });
 
