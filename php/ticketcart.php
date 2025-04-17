@@ -19,7 +19,6 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
         $stmt = $pdo->prepare($fetchEventDetails);
         $stmt->execute(['event_id' => $event_id]);
         $eventDetails = $stmt->fetch(PDO::FETCH_ASSOC);
-        
     }
 
     // Handle ticket reservation when button is clicked
@@ -115,7 +114,8 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
 
                 <!-- Get Ticket Form -->
                 <form method="POST">
-                    <button  class="pdfBTN" name="ticketBtn" type="button">Get Ticket</button>
+
+                    <button class="pdfBTN" name="ticketBtn" id="ticketBtn">Get Ticket</button>
 
                 </form>
 
