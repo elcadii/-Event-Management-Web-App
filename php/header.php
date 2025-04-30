@@ -22,31 +22,27 @@
                 <span><a class="navbare" href="http://localhost/events/php/hero.php#events">events</a></span>
                 <span><a class="navbare" href="http://localhost/events/php/hero.php#contact">contact</a></span>
                 <span><a class="navbare" href="http://localhost/events/php/ticket.php">buy tecket</a></span>
-                
+
 
 
             </nav>
             <div class="login_signup">
-                <a href="http://localhost/events/php/login.php">login <i class="fa-solid fa-right-to-bracket"></i></a>
-                <a href="http://localhost/events/php/singup.php">sign up <i class="fa-solid fa-user-plus"></i></a>
+                <?php
+                if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
+                    echo '<a href="http://localhost/events/php/profile.php"> profile <i class="fa-regular fa-circle-user" style="color: #ffffff;"></i></a>';
+                } else {
+                    echo '<a href="http://localhost/events/php/login.php">login <i class="fa-solid fa-right-to-bracket"></i></a>';
+                    echo ' <a href="http://localhost/events/php/singup.php">sign up <i class="fa-solid fa-user-plus"></i></a>';
+                }
+                ?>
+
+
             </div>
-            <div class="cart_shop">
+            <!-- <div class="cart_shop">
                 <i class="fa-solid fa-bag-shopping" style="color: rgb(211, 7, 51); font-size: 30px; cursor:pointer;"></i>
-            </div>
+            </div> -->
             <!-- -->
         </header>
-        <!-- <div class="header2" id="home">
-            <nav>
-                <span><a class="navbare" href="#home">music</a></span>
-                <span><a class="navbare" href="#about">sinima</a></span>
-                <span><a class="navbare" href="#services">Theatre</a></span>
-
-            </nav>
-            <form action="" class="search">
-                <input type="search" placeholder="search for product" />
-                <button type="submit">search</button>
-            </form>
-        </div> -->
     </div>
 </body>
 

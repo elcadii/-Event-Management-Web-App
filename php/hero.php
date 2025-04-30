@@ -1,15 +1,22 @@
 <?php
-include("connectdb.php");
-include("header.php");
-// include("header2.php");
+session_start();
+if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
+  include("connectdb.php");
+  include("header.php");
 
 
 
-$fetchevent = "SELECT evente.*, Category.category_name 
+
+  $fetchevent = "SELECT evente.*, Category.category_name 
                 FROM evente 
                 INNER JOIN Category ON evente.category_id = Category.category_id 
                 LIMIT 3";
-$eventes = $pdo->query($fetchevent)->fetchAll(PDO::FETCH_ASSOC);
+  $eventes = $pdo->query($fetchevent)->fetchAll(PDO::FETCH_ASSOC);
+} else {
+  header("location: http://localhost/events/php/login.php");
+}
+
+
 
 ?>
 
@@ -81,7 +88,8 @@ $eventes = $pdo->query($fetchevent)->fetchAll(PDO::FETCH_ASSOC);
                     <p class="eventDesc"> <i class="fa-brands fa-rocketchat" style="color:rgb(211, 7, 51);padding:10px;"></i>' . $event['event_description'] . '</p>
                     <p class="eventdate"><i class="fa-regular fa-clock" style="color:  rgb(211, 7, 51); padding:10px;"></i>' . $event['start_date'] . '</p>
                     <p class="tickettPrice"><i class="fa-solid fa-money-check-dollar" style="color:rgb(211, 7, 51);padding:10px;"></i> starting from' . $event['spicail_tarif'] . '</p>
-                    <a href="http://localhost/events/php/ticketcart.php"><button>see more</button></a>
+                    <a href="ticketcart.php?event_id=' . $event['event_id'] . '"><button>See More</button></a>
+
                     
                     
                 </div>';
@@ -169,6 +177,10 @@ $eventes = $pdo->query($fetchevent)->fetchAll(PDO::FETCH_ASSOC);
       <img src="../img/Feedback-pana.png" alt="">
     </div>
   </section>
+
+
+
+
 
 
 
