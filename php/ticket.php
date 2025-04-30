@@ -7,7 +7,7 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
     include("header.php");
     include("header2.php");
     echo "start code";
-    // die();
+
 
     $selectedCategory = isset($_GET['category']) ? $_GET['category'] : 'All';
     echo "we are at the start";

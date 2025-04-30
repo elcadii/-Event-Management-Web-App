@@ -29,14 +29,14 @@
             <div class="login_signup">
                 <?php
                 if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
-                    echo '<a href="http://localhost/events/php/login.php"> profile <i class="fa-regular fa-circle-user" style="color: #ffffff;"></i></a>';
+                    echo '<a href="http://localhost/events/php/profile.php"> profile <i class="fa-regular fa-circle-user" style="color: #ffffff;"></i></a>';
                 } else {
                     echo '<a href="http://localhost/events/php/login.php">login <i class="fa-solid fa-right-to-bracket"></i></a>';
                     echo ' <a href="http://localhost/events/php/singup.php">sign up <i class="fa-solid fa-user-plus"></i></a>';
                 }
                 ?>
-                
-               
+
+
             </div>
             <!-- <div class="cart_shop">
                 <i class="fa-solid fa-bag-shopping" style="color: rgb(211, 7, 51); font-size: 30px; cursor:pointer;"></i>

@@ -12,37 +12,34 @@ if (isset($_POST['singup'])) {
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
 
-    if($password == $confirm_password && !empty($password) && !empty($email) && !empty($first_name) && !empty($last_name) && FILter_var($email, FILTER_VALIDATE_EMAIL ) && strlen($password >= 6)){
-        $stmt=$pdo-> prepare("SELECT email FROM users WHERE email =? ");
-        $stmt->execute([$email]) ;
+    if ($password == $confirm_password && !empty($password) && !empty($email) && !empty($first_name) && !empty($last_name) && FILter_var($email, FILTER_VALIDATE_EMAIL) && strlen($password >= 6)) {
+        $stmt = $pdo->prepare("SELECT email FROM users WHERE email =? ");
+        $stmt->execute([$email]);
         $st = $stmt->fetch(PDO::FETCH_ASSOC);
-       if($st){
-         $exist =  "Email already exist";
-       }else{
-        $sql = "INSERT INTO users(first_name, last_name, email, password ) VALUES(:first_name, :last_name, :email, :password)";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute(['first_name' => $first_name, 'last_name' => $last_name, 'email' => $email,'password' => password_hash($password, PASSWORD_DEFAULT)]);
-                // echo "Registration successful";
+        if ($st) {
+            $exist =  "Email already exist";
+        } else {
+            $sql = "INSERT INTO users(first_name, last_name, email, password ) VALUES(:first_name, :last_name, :email, :password)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['first_name' => $first_name, 'last_name' => $last_name, 'email' => $email, 'password' => password_hash($password, PASSWORD_DEFAULT)]);
+            // echo "Registration successful";
 
-                $stmt1 = $pdo->prepare("SELECT * FROM users WHERE email =? ");
-                $stmt1->execute([$email]) ;
-                $row = $stmt1->fetch(PDO::FETCH_ASSOC);
-                // $_SESSION['name'] = 'yahya';
-                $_SESSION['user_id'] = $row['user_id'];
-                $_SESSION['first_name'] = $row['first_name'];
-                $_SESSION['last_name'] = $row['last_name'];
-
-                
-
-               // echo "Registration successful";
+            $stmt1 = $pdo->prepare("SELECT * FROM users WHERE email =? ");
+            $stmt1->execute([$email]);
+            $row = $stmt1->fetch(PDO::FETCH_ASSOC);
+            // $_SESSION['name'] = 'yahya';
+            $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['first_name'] = $row['first_name'];
+            $_SESSION['last_name'] = $row['last_name'];
 
 
-                header("location: http://localhost/events/php/login.php");
 
-            
-                
-       }
-    }else{
+            // echo "Registration successful";
+
+
+            header("location: http://localhost/events/php/login.php");
+        }
+    } else {
         $mutchPassword = "Password not match or not strong ";
     };
 }

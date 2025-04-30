@@ -28,6 +28,7 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
         $normal_tarif_quantity = $_POST['normal_tarif_quantity'] ?? 0;
         $special_tarif_quantity = $_POST['special_tarif_quantity'] ?? 0;
         $date_now = date('Y-m-d H:i:s');
+        
         // Insert reservation into the database
         $insertReservation = "INSERT INTO resrvtion (date_now, event_id, user_id, normal_tarif, spicail_tarif) 
                               VALUES (:date_now, :event_id, :user_id, :normal_tarif, :spicail_tarif)";
@@ -39,6 +40,33 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
             'normal_tarif' => $normal_tarif_quantity,
             'spicail_tarif' => $special_tarif_quantity
         ]);
+        
+        // Get the last inserted reservation ID
+        $reserve_id = $pdo->lastInsertId();
+        
+        // Insert tickets for normal price
+        for ($i = 0; $i < $normal_tarif_quantity; $i++) {
+            $ticket_code = "TKT-" . rand(100000, 999999);
+            $insertTicket = "INSERT INTO tickets (reserve_id, ticket_code) 
+                            VALUES (:reserve_id, :ticket_code)";
+            $stmt = $pdo->prepare($insertTicket);
+            $stmt->execute([
+                'reserve_id' => $reserve_id,
+                'ticket_code' => $ticket_code
+            ]);
+        }
+        
+        // Insert tickets for special price
+        for ($i = 0; $i < $special_tarif_quantity; $i++) {
+            $ticket_code = "TKT-" . rand(100000, 999999);
+            $insertTicket = "INSERT INTO tickets (reserve_id, ticket_code) 
+                            VALUES (:reserve_id, :ticket_code)";
+            $stmt = $pdo->prepare($insertTicket);
+            $stmt->execute([
+                'reserve_id' => $reserve_id,
+                'ticket_code' => $ticket_code
+            ]);
+        }
     }
 } else {
     header("location: http://localhost/events/php/login.php");
@@ -114,9 +142,11 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
 
                 <!-- Get Ticket Form -->
                 <form method="POST">
-
+                    <!-- Hidden inputs for ticket quantities -->
+                    <input type="hidden" name="normal_tarif_quantity" id="normal_quantity" value="0">
+                    <input type="hidden" name="special_tarif_quantity" id="special_quantity" value="0">
+                    
                     <button class="pdfBTN" name="ticketBtn" id="ticketBtn">Get Ticket</button>
-
                 </form>
 
             </div>
@@ -134,7 +164,9 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
 
         function updatePrice(type, action) {
             let priceElement = document.getElementById(type === 'normal' ? 'normalPrice' : 'specialPrice');
-            if (!priceElement) return;
+            let quantityField = document.getElementById(type === 'normal' ? 'normal_quantity' : 'special_quantity');
+            
+            if (!priceElement || !quantityField) return;
 
             let currentPrice = parseFloat(priceElement.textContent.replace(' DH', ''));
             let change = originalPrices[type];
@@ -143,6 +175,10 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
             if (newPrice < 0) newPrice = 0;
 
             priceElement.textContent = newPrice.toFixed(2) + ' DH';
+            
+            // Update the hidden quantity field
+            let quantity = Math.round(newPrice / originalPrices[type]);
+            quantityField.value = quantity;
         }
     </script>
     <script src="../script/pdfcart.js"></script>

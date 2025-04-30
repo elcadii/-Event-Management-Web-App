@@ -102,7 +102,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 container.appendChild(ticket);
             }
         }
-        
 
         container.style.display = "block";
 
@@ -117,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // If you have the generateInvoicePDF function, uncomment this line
             // generateInvoicePDF(normalPriceNow, specialPriceNow, unitNormal, unitSpecial, event);
             
-            
+ 
         });
     }
 });
