@@ -2,43 +2,51 @@
 // session_start();
 include("connectdb.php");
 
-$PassError = "";
-$emailError = "";
+$errors = [];
+$email = "";
+
 
 if (isset($_POST['loginbtn'])) {
-    $email = $_POST["loginemail"];
+    $email = trim($_POST["loginemail"]);
     $password = $_POST['loginpassword'];
 
-    $query  = "SELECT * FROM users WHERE email = :email";
-    $stmt = $pdo->prepare($query);
-    $stmt->bindParam(':email', $email);
-    $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($row) {
-        if (password_verify($password, $row['password'])) {
-            // echo "you are log in";
-            //  echo "<pre>";
-            // print_r($adress) ;
-            // echo "</pre>";
-            $_SESSION['login'] = true;
-            $_SESSION['user_id'] = $row['user_id'];
-            // var_dump($_SESSION['address_id']);
-            // die();
-            header("location: http://localhost/events/php/hero.php");
+    
+    if (empty($email)) {
+        $errors['email'] = "Email is required.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = "Invalid email format.";
+    }
+
+    if (empty($password)) {
+        $errors['password'] = "Password is required.";
+    }
+
+    if (empty($errors)) {
+        $query  = "SELECT * FROM users WHERE email = :email";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($row) {
+            if (password_verify($password, $row['password'])) {
+                $_SESSION['login'] = true;
+                $_SESSION['user_id'] = $row['user_id'];
+                $_SESSION['first_name'] = $row['first_name'];
+                $_SESSION['last_name'] = $row['last_name'];
+
+                header("Location: http://localhost/events/php/hero.php");
+                exit();
+            } else {
+                $errors['password'] = "Wrong password.";
+            }
         } else {
-            $PassError =  "wrong password";
-            $_SESSION['login'] = false;
+            $errors['email'] = "Email not found.";
         }
-    } else {
-        $emailError =  "email not found";
-        $_SESSION['login'] = false;
     }
 }
-
-
-
-
 ?>
+
 
 
 
@@ -55,32 +63,35 @@ if (isset($_POST['loginbtn'])) {
 </head>
 
 <body>
-    <!-- From Uiverse.io by vinodjangid07 -->
-    <form action="" class="form_main" method="POST">
-        <div class="container">
-            <p class="heading">Login</p>
-            <div class="inputContainer">
-                <i class="fa-solid fa-envelope" style="color:rgb(194, 7, 7);"></i>
-                <input type="text" name="loginemail" class="inputField" id="email" placeholder="email">
-            </div>
-            <span class="error"><?php echo $emailError; ?></span>
+  <form action="" class="form_main" method="POST">
+    <div class="container">
+      <p class="heading">Login</p>
 
-            <div class="inputContainer">
-                <i class="fa-solid fa-lock" style="color:rgb(201, 5, 5);"></i>
-                <input name="loginpassword" type="password" class="inputField" id="password" placeholder="Password">
-            </div>
-            <span class="error"><?php echo $PassError; ?></span>
+      <div class="inputContainer">
+        <i class="fa-solid fa-envelope" style="color:rgb(194, 7, 7);"></i>
+        <input type="text" name="loginemail" class="inputField" id="email" placeholder="Email"
+          value="<?= htmlspecialchars($email) ?>">
+      </div>
+      <?php if (!empty($errors['email'])): ?>
+        <span class="error" style="color:red; font-size: 0.8em;"><?= $errors['email'] ?></span>
+      <?php endif; ?>
 
+      <div class="inputContainer">
+        <i class="fa-solid fa-lock" style="color:rgb(201, 5, 5);"></i>
+        <input name="loginpassword" type="password" class="inputField" id="password" placeholder="Password">
+      </div>
+      <?php if (!empty($errors['password'])): ?>
+        <span class="error" style="color:red; font-size: 0.8em;"><?= $errors['password'] ?></span>
+      <?php endif; ?>
 
-            <button type="submit" name="loginbtn" id="button">Submit</button>
-            <div class="forgetPass">
-                <a class="forgotLink" href="#">Forgot your password?</a>
-                <a href="http://localhost/events/php/singup.php">creat account</a>
-            </div>
+      <button type="submit" name="loginbtn" id="button">Submit</button>
 
-        </div>
-        <!-- <img src="../img/Login-rafiki.png" alt=""> -->
-    </form>
+      <div class="forgetPass">
+        <a class="forgotLink" href="#">Forgot your password?</a>
+        <a href="http://localhost/events/php/singup.php">Create account</a>
+      </div>
+    </div>
+  </form>
 </body>
 
 </html>
